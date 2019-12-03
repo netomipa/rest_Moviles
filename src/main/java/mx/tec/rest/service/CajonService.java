@@ -12,7 +12,7 @@ import java.util.List;
 public class CajonService implements ICajonService {
     @Override
     public List<Cajon> findCajones() {
-        String sql = "SELECT idCajon, seccion, numero, ocupado, idUsuario, posicion, tipo FROM Cajon";
+        String sql = "SELECT idCajon, seccion, numero, ocupado, idUsuario, posicionX, posicionY, tipo FROM Cajon";
         List<Cajon> cajones = new ArrayList<>();
         try {
             Connection conexion = Conexion.getConexion();
@@ -27,8 +27,9 @@ public class CajonService implements ICajonService {
                 cajon.setNumero(resultSet.getString("numero"));
                 cajon.setOcupado(resultSet.getInt("ocupado"));
                 cajon.setIdUsuario(resultSet.getInt("idUsuario"));
-                cajon.setPosicion(resultSet.getInt("posicion"));
-                cajon.setPosicion(resultSet.getInt("tipo"));
+                cajon.setPosicionX(resultSet.getInt("posicionX"));
+                cajon.setPosicionY(resultSet.getInt("posicionY"));
+                cajon.setTipo(resultSet.getInt("tipo"));
                 cajones.add(cajon);
             }
             conexion.close();
@@ -42,7 +43,7 @@ public class CajonService implements ICajonService {
 
     @Override
     public List<Cajon> findCajonesBySeccion(String seccion) {
-        String sql = "SELECT idCajon, seccion, numero, ocupado, idUsuario, posicion, tipo FROM Cajon WHERE seccion = ?";
+        String sql = "SELECT idCajon, seccion, numero, ocupado, idUsuario, posicionX, posicionY, tipo FROM Cajon WHERE seccion = ?";
         List<Cajon> cajones = new ArrayList<>();
         try {
             Connection conexion = Conexion.getConexion();
@@ -58,8 +59,9 @@ public class CajonService implements ICajonService {
                 cajon.setNumero(resultSet.getString("numero"));
                 cajon.setOcupado(resultSet.getInt("ocupado"));
                 cajon.setIdUsuario(resultSet.getInt("idUsuario"));
-                cajon.setPosicion(resultSet.getInt("posicion"));
-                cajon.setPosicion(resultSet.getInt("tipo"));
+                cajon.setPosicionX(resultSet.getInt("posicionX"));
+                cajon.setPosicionY(resultSet.getInt("posicionY"));
+                cajon.setTipo(resultSet.getInt("tipo"));
                 cajones.add(cajon);
             }
             conexion.close();
@@ -73,7 +75,7 @@ public class CajonService implements ICajonService {
 
     @Override
     public Cajon findCajonById(int idCajon) {
-        String sql = "SELECT idCajon, seccion, numero, ocupado, idUsuario, posicion, tipo FROM Cajon WHERE idCajon=?";
+        String sql = "SELECT idCajon, seccion, numero, ocupado, idUsuario, posicionX, posicionY, tipo FROM Cajon WHERE idCajon=?";
         Cajon cajon = new Cajon();
         try {
             Connection conexion = Conexion.getConexion();
@@ -86,7 +88,8 @@ public class CajonService implements ICajonService {
             cajon.setNumero(resultSet.getString("numero"));
             cajon.setOcupado(resultSet.getInt("ocupado"));
             cajon.setIdUsuario(resultSet.getInt("idUsuario"));
-            cajon.setPosicion(resultSet.getInt("posicion"));
+            cajon.setPosicionX(resultSet.getInt("posicionX"));
+            cajon.setPosicionY(resultSet.getInt("posicionY"));
             cajon.setTipo(resultSet.getInt("tipo"));
             conexion.close();
             preparedStatement.close();
@@ -120,7 +123,7 @@ public class CajonService implements ICajonService {
 
     @Override
     public boolean saveCajon(Cajon cajon) {
-        String sql = "INSERT INTO Cajon(seccion, numero, ocupado, idUsuario, posicion, tipo) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO Cajon(seccion, numero, ocupado, idUsuario, posicionX, posicionY, tipo) VALUES(?,?,?,?,?,?,?)";
         boolean resultado = false;
         try {
             Connection conexion = Conexion.getConexion();
@@ -129,8 +132,9 @@ public class CajonService implements ICajonService {
             preparedStatement.setString(2, cajon.getNumero());
             preparedStatement.setInt(3, cajon.getOcupado());
             preparedStatement.setInt(4, cajon.getIdUsuario());
-            preparedStatement.setInt(5, cajon.getPosicion());
-            preparedStatement.setInt(6, cajon.getTipo());
+            preparedStatement.setInt(5, cajon.getPosicionX());
+            preparedStatement.setInt(6, cajon.getPosicionY());
+            preparedStatement.setInt(7, cajon.getTipo());
             preparedStatement.execute();
             resultado = true;
             conexion.close();
@@ -145,7 +149,7 @@ public class CajonService implements ICajonService {
     @Override
     public boolean editCajon(Cajon cajon) {
         System.out.println("Entro a edit " + cajon.toString());
-        String sql = "UPDATE Cajon SET seccion=?, numero=?, ocupado=?, idUsuario=?, posicion=?, tipo=? WHERE idCajon=?";
+        String sql = "UPDATE Cajon SET seccion=?, numero=?, ocupado=?, idUsuario=?, posicionX=?, posicionY=?, tipo=? WHERE idCajon=?";
         boolean resultado = false;
 
         try {
@@ -155,9 +159,10 @@ public class CajonService implements ICajonService {
             preparedStatement.setString(2, cajon.getNumero());
             preparedStatement.setInt(3, cajon.getOcupado());
             preparedStatement.setInt(4, cajon.getIdUsuario());
-            preparedStatement.setInt(5, cajon.getPosicion());
-            preparedStatement.setInt(6, cajon.getTipo());
-            preparedStatement.setInt(7, cajon.getIdCajon());
+            preparedStatement.setInt(5, cajon.getPosicionX());
+            preparedStatement.setInt(6, cajon.getPosicionY());
+            preparedStatement.setInt(7, cajon.getTipo());
+            preparedStatement.setInt(8, cajon.getIdCajon());
             preparedStatement.execute();
             resultado = true;
             conexion.close();

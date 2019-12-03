@@ -19,7 +19,9 @@ public class Cajon {
     @XmlElement
     private int idUsuario;
     @XmlElement
-    private int posicion;
+    private int posicionX;
+    @XmlElement
+    private int posicionY;
     @XmlElement
     private int tipo;
 
@@ -31,7 +33,8 @@ public class Cajon {
                 ", numero='" + numero + '\'' +
                 ", ocupado=" + ocupado +
                 ", idUsuario=" + idUsuario +
-                ", posicion=" + posicion +
+                ", posicionX=" + posicionX +
+                ", posicionY=" + posicionY +
                 ", tipo=" + tipo +
                 '}';
     }
@@ -76,12 +79,20 @@ public class Cajon {
         this.idUsuario = idUsuario;
     }
 
-    public int getPosicion() {
-        return posicion;
+    public int getPosicionX() {
+        return posicionX;
     }
 
-    public void setPosicion(int posicion) {
-        this.posicion = posicion;
+    public void setPosicionX(int posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public int getPosicionY() {
+        return posicionY;
+    }
+
+    public void setPosicionY(int posicionY) {
+        this.posicionY = posicionY;
     }
 
     public int getTipo() {
